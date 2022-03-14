@@ -1,4 +1,4 @@
-# very basic terminal emulator in pyqt
+# very basic terminal emulator in pyqt (forked)
 # https://pythonbasics.org/pyqt/
 
 from PyQt5 import QtWidgets, uic
@@ -7,7 +7,9 @@ from PyQt5.QtWidgets import QMessageBox, QDialog, QFileDialog
 import sys
 import os
 import subprocess
- 
+import platform
+import pwd
+
 class Example(QtWidgets.QMainWindow):
     def __init__(self):
         super(Example, self).__init__()
@@ -30,10 +32,10 @@ class Example(QtWidgets.QMainWindow):
             print(self.working_dir)
             subprocess.call(cmd, shell=True, cwd=self.working_dir)
 
-            self.textBrowser.setText( self.textBrowser.toPlainText() + "\n$ " + cmd )
+            self.textBrowser.setText( f'{self.textBrowser.toPlainText()}\n {pwd.getpwuid(os.getuid())[0]}@{platform.node} $ {cmd}' )
         else:
             result = subprocess.check_output(cmd, shell=True, cwd=self.working_dir)
-            self.textBrowser.setText( self.textBrowser.toPlainText() + "\n$ " + cmd + result.decode("utf-8")  )
+            self.textBrowser.setText( f'{self.textBrowser.toPlainText()}\n {pwd.getpwuid(os.getuid())[0]}@{platform.node} $ {cmd}\n{result.decode("utf-8")}'  )
 
         self.textBrowser.verticalScrollBar().setValue(self.textBrowser.verticalScrollBar().maximum())
             
