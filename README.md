@@ -1,4 +1,4 @@
-## Very basic PyQt terminal emulator
+## Very basic PyQt terminal emulator (Fork)
 
 This is a very basic terminal emulator written in Python PyQt.
 It lets you run commands and see output, as the screenshot below:
